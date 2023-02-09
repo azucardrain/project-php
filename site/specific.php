@@ -1,16 +1,16 @@
 <?php
 require 'database.php';
-
-$stmt = $conn->prepare("SELECT * FROM users");
+$id = $_GET['id'];
+$stmt = $conn->prepare("SELECT * FROM users WHERE id = $id");
 $stmt->execute();
 
 // set the resulting array to associative
 $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 $users = $stmt->fetchAll();
 ?>
-
 <html>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+
 <style>
     h1 {
         padding-left: 10px;
@@ -51,8 +51,6 @@ $users = $stmt->fetchAll();
                         <?php echo $users['email'] ?>
                     </td>
                     <td>
-                    <td><a href="specific.php?id=<?php echo $users['id'] ?>" class="btn btn-danger">details</a>
-                    </td>
                     </td>
                 </tr>
             <?php endforeach; ?>
